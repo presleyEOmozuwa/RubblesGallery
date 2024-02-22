@@ -117,5 +117,5 @@ jobs:
 
         - name: Run docker containers
           run: |
-            docker compose -f ./docker-compose.yml up
+            docker compose -f ./docker-compose.yml up -d
             docker ps -a
