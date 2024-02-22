@@ -1,0 +1,50 @@
+version: '3.9'
+
+services:
+  mongo_db:
+    container_name: mongo_server
+    image: mongo
+    restart: always
+    volumes:
+      - mongo_db:/data/db
+
+  nginx_proxy:
+      container_name: ngnix_server
+      image: rubblestech3400/ngnix
+      build:
+        context: ./nginx
+        dockerfile: Dockerfile
+      restart: always
+      ports:
+        - 8080:80      
+      depends_on:
+        - backend
+
+  frontend:
+    container_name: react_server
+    image: rubblestech3400/react_app
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.frontend
+    restart: always
+    env_file: ./frontend/.env
+    volumes:
+      - /app/node_modules
+      - ./frontend:/app
+
+  backend:
+    container_name: node_server
+    image: rubblestech3400/backend
+    build:
+      context: ./serverside
+      dockerfile: Dockerfile.backend
+    restart: always
+    env_file: ./serverside/.env
+    volumes:
+      - /app/node_modules
+      - ./serverside:/app
+    depends_on:
+        - mongo_db   
+
+volumes:
+  mongo_db: {}
