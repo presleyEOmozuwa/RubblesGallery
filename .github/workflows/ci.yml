@@ -70,7 +70,6 @@ jobs:
             echo STRIPE_KEY=${{ secrets.STRIPE_KEY }} >> .env
             echo WHSEC=${{ secrets.WHSEC }} >> .env
             npm run tester
-            exit
 
     dockerize:
       runs-on: ubuntu-latest
