@@ -25,8 +25,6 @@ describe("Login.js", () => {
 
         expect(body.error).toEqual("email and password fields are required")
         expect(statusCode).toBe(400);
-        console.log(body);
-        console.log(statusCode);
     })
 
     it("should return status code 400 when user's provided email is associated to a closed account", async () => {
@@ -39,8 +37,6 @@ describe("Login.js", () => {
 
         expect(body.error).toEqual("email is associated to a closed account")
         expect(statusCode).toBe(400);
-        console.log(body);
-        console.log(statusCode);
     })
 
     it("should return status code 400 when user's provided email is associated to a blocked account", async () => {
@@ -54,8 +50,6 @@ describe("Login.js", () => {
 
         expect(body.error).toEqual("email is associated to a blocked account")
         expect(statusCode).toBe(400);
-        console.log(body);
-        console.log(statusCode);
     })
 
     it("should return status code 400 when user's provided email is invalid", async () => {
@@ -70,8 +64,6 @@ describe("Login.js", () => {
 
         expect(body.error).toEqual("invalid email or password")
         expect(statusCode).toBe(400);
-        console.log(body);
-        console.log(statusCode);
     })
 
     it("should return status code 400 when user's provided password is invalid", async () => {
@@ -88,8 +80,6 @@ describe("Login.js", () => {
 
         expect(body.error).toEqual("invalid email or password")
         expect(statusCode).toBe(400);
-        console.log(body);
-        console.log(statusCode);
     })
 
     it("should return status code 500 when otp token generation fails", async () => {
@@ -108,8 +98,6 @@ describe("Login.js", () => {
 
         expect(body.error).toEqual("otp token generation failed");
         expect(statusCode).toBe(500);
-        console.log(body);
-        console.log(statusCode);
     })
 
     it("when user ENABLES TWO FACTOR AUTHENTICATION, send an OTP for further LOGIN VERIFICATION and return status code 200 when it is successfully sent", async () => {
@@ -125,7 +113,7 @@ describe("Login.js", () => {
 
         jest.spyOn(bcrypt, 'compare').mockResolvedValueOnce(true);
         
-        const { body, statusCode } = await request(app).post('/login/payload').send({
+        const { statusCode } = await request(app).post('/login/payload').send({
             email: "hensleyomozuwa@gmail.com",
             password: "Hook3400",
             useToken: "use token",
@@ -133,8 +121,6 @@ describe("Login.js", () => {
         });
 
         expect(statusCode).toBe(200);
-        console.log(body);
-        console.log(statusCode);
     })
 
     it("when user ENABLES [remembeMe] checkbox, and his login SESSIONID MATCHES the one on DATABASE, generate JWT TOKEN with INCREASED EXPIRY TIME from the previous, and return status code 200 when it is successfully sent", async () => {
@@ -158,7 +144,7 @@ describe("Login.js", () => {
         
         jest.spyOn(bcrypt, 'compare').mockResolvedValueOnce(true);
 
-        const { body, statusCode } = await request(app).post('/login/payload').send({
+        const { statusCode } = await request(app).post('/login/payload').send({
             email: "hensleyomozuwa@gmail.com",
             password: "Hook3400",
             useToken: " ",
@@ -166,9 +152,6 @@ describe("Login.js", () => {
         });
 
         expect(statusCode).toBe(200);
-        console.log(body);
-        console.log(statusCode);
-        console.log("The first")
     })
 
     it("when user DISABLES [remembeMe] checkbox, but his login SESSIONID MATCHES the one ON DATABASE, generate and send JWT TOKEN, return status code 200 when it is successfully sent", async () => {
@@ -192,7 +175,7 @@ describe("Login.js", () => {
         
         jest.spyOn(bcrypt, 'compare').mockResolvedValueOnce(true);
 
-        const { body, statusCode } = await request(app).post('/login/payload').send({
+        const { statusCode } = await request(app).post('/login/payload').send({
             email: "hensleyomozuwa@gmail.com",
             password: "Hook3400",
             useToken: " ",
@@ -200,9 +183,6 @@ describe("Login.js", () => {
         });
 
         expect(statusCode).toBe(200);
-        console.log(body);
-        console.log(statusCode);
-        console.log("The Second")
     })
 
     it("when user DISABLES [remembeMe] checkbox, and his login SESSIONID DO NOT MATCH the one ON DATABASE, send an OTP for further AUTHENTICATION and return status code 200 when it is successfully sent",  async () => {
@@ -222,7 +202,7 @@ describe("Login.js", () => {
 
         jest.spyOn(LocationTracker, 'findOne').mockResolvedValueOnce(null);
 
-        const { body, statusCode } = await request(app).post('/login/payload').send({
+        const { statusCode } = await request(app).post('/login/payload').send({
             email: "hensleyomozuwa@gmail.com",
             password: "Hook3400",
             useToken: "",
@@ -230,9 +210,6 @@ describe("Login.js", () => {
         });
 
         expect(statusCode).toBe(200);
-        console.log(body);
-        console.log(statusCode);
-        console.log("The Third")
     })
 
 })
