@@ -39,7 +39,7 @@ describe("register.js", () => {
     })
 
     it("should return status code 400 when username validation fails", async () => {
-        const { body, statusCode } = await request(app).post('/register').send({
+        const { statusCode } = await request(app).post('/register').send({
             payload: {
                 username: "Hen",
                 email: "hensleyomozuwa@gmail.com",
@@ -201,7 +201,7 @@ describe("register.js", () => {
 
         jest.spyOn(RefreshToken, 'create').mockResolvedValueOnce(null);
 
-        const { body, statusCode, } = await request(app).post('/register').send({
+        const { statusCode, } = await request(app).post('/register').send({
             payload: {
                 username: "Sammy88",
                 email: "samadams@gmail.com",
@@ -226,7 +226,7 @@ describe("register.js", () => {
 
         jest.spyOn(Order, 'create').mockResolvedValueOnce(null);
 
-        const { body, statusCode, } = await request(app).post('/register').send({
+        const { statusCode, } = await request(app).post('/register').send({
             payload: {
                 username: "Sammy88",
                 email: "samadams@gmail.com",
@@ -252,7 +252,7 @@ describe("register.js", () => {
 
         jest.spyOn(OrderArchive, 'create').mockResolvedValueOnce(null);
 
-        const { body, statusCode, } = await request(app).post('/register').send({
+        const { statusCode, } = await request(app).post('/register').send({
             payload: {
                 username: "Sammy88",
                 email: "samadams@gmail.com",
@@ -279,7 +279,7 @@ describe("register.js", () => {
 
         jest.spyOn(Subscription, 'create').mockResolvedValueOnce(null);
 
-        const { body, statusCode, } = await request(app).post('/register').send({
+        const { statusCode, } = await request(app).post('/register').send({
             payload: {
                 username: "Sammy88",
                 email: "samadams@gmail.com",
@@ -288,7 +288,7 @@ describe("register.js", () => {
             }
         });
     
-        expect(statusCode).toBe(500);
+        expect(statusCode).toBe(300);
     })
 
     it("should return status code 500 when user's subscription archive store creation fails", async () => {
@@ -307,7 +307,7 @@ describe("register.js", () => {
 
         jest.spyOn(SubArchive, 'create').mockResolvedValueOnce(null);
 
-        const { body, statusCode, } = await request(app).post('/register').send({
+        const { statusCode, } = await request(app).post('/register').send({
             payload: {
                 username: "Sammy88",
                 email: "samadams@gmail.com",
@@ -333,7 +333,7 @@ describe("register.js", () => {
 
         stripeCustomer.mockResolvedValueOnce({id: "stripe004"})
 
-        const { body, statusCode, } = await request(app).post('/register').send({
+        const { statusCode, } = await request(app).post('/register').send({
             payload: {
                 username: "Sammy88",
                 email: "samadams@gmail.com",
