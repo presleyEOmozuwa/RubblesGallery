@@ -19,7 +19,35 @@ services:
         - 8080:80      
       depends_on:
         - backend
-
+  
+  test_frontend:
+    container_name: test_client
+    image: rubblestech3400/client_test
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.frontend
+    env_file: ./frontend/.env
+    volumes:
+      - /app/node_modules
+      - ./frontend:/app
+    command: ["npm", "run", "test"]
+    depends_on:
+        - frontend   
+    
+  test_backend:
+    container_name: test_server
+    image: rubblestech3400/server_test
+    build:
+      context: ./serverside
+      dockerfile: Dockerfile.backend
+    env_file: ./serverside/.env
+    volumes:
+      - /app/node_modules
+      - ./serverside:/app
+    command: ["npm", "run", "test"]
+    depends_on:
+        - backend   
+  
   frontend:
     container_name: react_server
     image: rubblestech3400/react_app

@@ -7,7 +7,6 @@
     "dev:host": "nodemon ./main.js",
     "dev:docker": "nodemon ./server.js",
     "test": "export $(xargs < ./.env) && jest --watchAll",
-    "tester": "jest --watchAll",
     "coverage": "npm run test -- --coverage"
   },
   "keywords": [],

@@ -34,7 +34,7 @@ router.post('/register', async (req, res) => {
 
             await assignSubArchiveToUser(createdUser);
 
-            const result = await sendEmailToUser(createdUser);
+            // const result = await sendEmailToUser(createdUser);
 
             res.send({ "status": "client registration successful", "isRegistered": true, "sessionId": req.sessionID, user: createdUser });
 

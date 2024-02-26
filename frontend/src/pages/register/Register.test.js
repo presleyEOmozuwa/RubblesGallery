@@ -1,7 +1,6 @@
-import { render, screen } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import RegisterForm from './RegisterForm';
-import NoMatch from '../no-match/NoMatch';
 import Wrapper from '../../../common/Wrapper';
 import LayoutPublic from '../../components/navbars/NavbarPublic';
 import userEvent from '@testing-library/user-event';

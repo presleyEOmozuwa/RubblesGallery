@@ -36,12 +36,10 @@ describe("register.js", () => {
 
         expect(body.error).toEqual("please provide required fields")
         expect(statusCode).toBe(400);
-        console.log(body);
-        console.log(statusCode);
     })
 
     it("should return status code 400 when username validation fails", async () => {
-        const { body, statusCode } = await request(app).post('/register').send({
+        const { statusCode } = await request(app).post('/register').send({
             payload: {
                 username: "Hen",
                 email: "hensleyomozuwa@gmail.com",
@@ -51,8 +49,6 @@ describe("register.js", () => {
         });
 
         expect(statusCode).toBe(400);
-        console.log(body);
-        console.log(statusCode);
     })
 
     it("should return status code 400  when user's provided email is associated with a deleted account", async () => {
@@ -68,8 +64,6 @@ describe("register.js", () => {
 
         expect(body.error).toEqual("email cannot be used for registration, it is associated to a deleted account")
         expect(statusCode).toBe(400);
-        console.log(body);
-        console.log(statusCode);
     })
     
     it("should return status code 400 when user's provided email already exist on the database", async () => {
@@ -87,9 +81,6 @@ describe("register.js", () => {
 
         expect(body.error).toEqual("email already in use");
         expect(statusCode).toBe(400);
-        console.log(body);
-        console.log(statusCode);
-
     })
 
     it("should return 500 when password hashing fails", async () => {
@@ -109,9 +100,6 @@ describe("register.js", () => {
 
         expect(body.error).toEqual("password hashing failed")
         expect(statusCode).toBe(500);
-        console.log(body);
-        console.log(statusCode);
-
     })
 
     it("should return status code 500 when registration fails not because of user inputs but due to backend issues", async () => {
@@ -133,9 +121,6 @@ describe("register.js", () => {
 
         expect(body.error).toEqual("Sorry, try again later")
         expect(statusCode).toBe(500);
-        console.log(body);
-        console.log(statusCode);
-
     })
 
     it("should return status code 500 when trying to save user's session id on database fails", async () => {
@@ -157,8 +142,6 @@ describe("register.js", () => {
         });
         expect(body.error).toEqual("saving user's sessionId to the database failed");
         expect(statusCode).toBe(500);
-        console.log(body);
-        console.log(statusCode);
     })
 
     it("should return status code 500 when user's shopping cart creation fails", async () => {
@@ -181,8 +164,6 @@ describe("register.js", () => {
         });
         expect(body.error).toEqual("user's cart creation failed");
         expect(statusCode).toBe(500);
-        console.log(body);
-        console.log(statusCode);
     })
 
     it("should return status code 500 when user's subscription cart creation fails", async () => {
@@ -206,8 +187,6 @@ describe("register.js", () => {
         });
         expect(body.error).toEqual("subscription cart creation failed");
         expect(statusCode).toBe(500);
-        console.log(body);
-        console.log(statusCode);
     })
 
     it("should return status code 500 when user's refreshtoken store creation fails", async () => {
@@ -222,7 +201,7 @@ describe("register.js", () => {
 
         jest.spyOn(RefreshToken, 'create').mockResolvedValueOnce(null);
 
-        const { body, statusCode, } = await request(app).post('/register').send({
+        const { statusCode, } = await request(app).post('/register').send({
             payload: {
                 username: "Sammy88",
                 email: "samadams@gmail.com",
@@ -232,8 +211,6 @@ describe("register.js", () => {
         });
     
         expect(statusCode).toBe(500);
-        console.log(body);
-        console.log(statusCode);
     })
 
     it("should return status code 500 when user's order store creation fails", async () => {
@@ -249,7 +226,7 @@ describe("register.js", () => {
 
         jest.spyOn(Order, 'create').mockResolvedValueOnce(null);
 
-        const { body, statusCode, } = await request(app).post('/register').send({
+        const { statusCode, } = await request(app).post('/register').send({
             payload: {
                 username: "Sammy88",
                 email: "samadams@gmail.com",
@@ -259,8 +236,6 @@ describe("register.js", () => {
         });
     
         expect(statusCode).toBe(500);
-        console.log(body);
-        console.log(statusCode);
     })
 
     it("should return status code 500 when user's order archive store creation fails", async () => {
@@ -277,7 +252,7 @@ describe("register.js", () => {
 
         jest.spyOn(OrderArchive, 'create').mockResolvedValueOnce(null);
 
-        const { body, statusCode, } = await request(app).post('/register').send({
+        const { statusCode, } = await request(app).post('/register').send({
             payload: {
                 username: "Sammy88",
                 email: "samadams@gmail.com",
@@ -287,8 +262,6 @@ describe("register.js", () => {
         });
     
         expect(statusCode).toBe(500);
-        console.log(body);
-        console.log(statusCode);
     })
 
     it("should return status code 500 when user's subscription store creation fails", async () => {
@@ -306,7 +279,7 @@ describe("register.js", () => {
 
         jest.spyOn(Subscription, 'create').mockResolvedValueOnce(null);
 
-        const { body, statusCode, } = await request(app).post('/register').send({
+        const { statusCode, } = await request(app).post('/register').send({
             payload: {
                 username: "Sammy88",
                 email: "samadams@gmail.com",
@@ -316,8 +289,6 @@ describe("register.js", () => {
         });
     
         expect(statusCode).toBe(500);
-        console.log(body);
-        console.log(statusCode);
     })
 
     it("should return status code 500 when user's subscription archive store creation fails", async () => {
@@ -336,7 +307,7 @@ describe("register.js", () => {
 
         jest.spyOn(SubArchive, 'create').mockResolvedValueOnce(null);
 
-        const { body, statusCode, } = await request(app).post('/register').send({
+        const { statusCode, } = await request(app).post('/register').send({
             payload: {
                 username: "Sammy88",
                 email: "samadams@gmail.com",
@@ -346,8 +317,6 @@ describe("register.js", () => {
         });
     
         expect(statusCode).toBe(500);
-        console.log(body);
-        console.log(statusCode);
     })
 
     it("should return status code 200 when user is successfully registered", async () => {
@@ -364,7 +333,7 @@ describe("register.js", () => {
 
         stripeCustomer.mockResolvedValueOnce({id: "stripe004"})
 
-        const { body, statusCode, } = await request(app).post('/register').send({
+        const { statusCode, } = await request(app).post('/register').send({
             payload: {
                 username: "Sammy88",
                 email: "samadams@gmail.com",
@@ -374,8 +343,6 @@ describe("register.js", () => {
         });
     
         expect(statusCode).toBe(200);
-        console.log(body);
-        console.log(statusCode);
     })
 
 })

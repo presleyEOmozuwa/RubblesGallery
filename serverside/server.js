@@ -46,7 +46,7 @@ const mongoUrl = process.env.MONGODB_ATLAS_URL;
 app.use(
     session({
         secret: SESSION_SECRET_KEY,
-        store: new MongoStore({ client: mongoose.connection.getClient(), mongoUrl: mongoUrl, ttl: 30 * 24 * 60 * 60, autoRemove: 'native'}),
+        store: MongoStore.create({ mongoUrl: mongoUrl, ttl: 30 * 24 * 60 * 60, autoRemove: 'native'}),
         resave: false,
         saveUninitialized: true,
         cookie: {

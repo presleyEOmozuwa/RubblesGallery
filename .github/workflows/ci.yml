@@ -7,70 +7,6 @@ on:
     branches: ['main']
 
 jobs:
-    clientest:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout repo files into runner
-          uses: actions/checkout@v3
-        
-        - name: Install nodejs
-          uses: actions/setup-node@v3
-          with:
-            node-version: '20.x'
-
-        - name: Create env file within the frontend directory
-          run: |
-            ls -a ${{ github.workspace }}
-            cd frontend
-            npm ci
-            touch .env
-            echo REACT_APP_ADMIN_EMAIL=${{ secrets.REACT_APP_ADMIN_EMAIL }} >> .env
-            echo REACT_APP_GOOGLE_CLIENT_ID=${{ secrets.REACT_APP_GOOGLE_CLIENT_ID }} >> .env
-            echo REACT_APP_GOOGLE_SECRET=${{ secrets.REACT_APP_GOOGLE_SECRET }} >> .env
-            npm run test
-
-    servertest:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout repo files into runner
-          uses: actions/checkout@v3
-        
-        - name: Install nodejs
-          uses: actions/setup-node@v3
-          with:
-            node-version: '20.x'
-
-        - name: Create env file within the serverside directory
-          run: |
-            ls -a ${{ github.workspace }}
-            cd serverside
-            npm ci
-            touch .env
-            echo ACCESS_TOKEN_KEY=${{ secrets.ACCESS_TOKEN_KEY }} >> .env
-            echo ADMIN_EMAIL=${{ secrets.ADMIN_EMAIL }} >> .env
-            echo EASYPOST_KEY=${{ secrets.EASYPOST_KEY }} >> .env
-            echo EMAIL_TOKEN_KEY=${{ secrets.EMAIL_TOKEN_KEY }} >> .env
-            echo JWT_SECRET_KEY=${{ secrets.JWT_SECRET_KEY }} >> .env
-            echo MAILTRAP_HOST=${{ secrets.MAILTRAP_HOST }} >> .env
-            echo MAILTRAP_PASSWORD=${{ secrets.MAILTRAP_PASSWORD }} >> .env
-            echo MAILTRAP_PORT=${{ secrets.MAILTRAP_PORT }} >> .env
-            echo MAILTRAP_USER=${{ secrets.MAILTRAP_USER }} >> .env
-            echo MONGODB_ATLAS_URL=${{ secrets.MONGODB_ATLAS_URL }} >> .env
-            echo MONGODB_VIRTUAL_URL=${{ secrets.MONGODB_VIRTUAL_URL }} >> .env
-            echo NGINX_BASE_URL=${{ secrets.NGINX_BASE_URL }} >> .env
-            echo NGINX_VIRTUAL_URL=${{ secrets.NGINX_VIRTUAL_URL }} >> .env
-            echo PASSWORD_HASH_KEY=${{ secrets.PASSWORD_HASH_KEY }} >> .env
-            echo PASSWORD_RESET_TOKEN_KEY=${{ secrets.PASSWORD_RESET_TOKEN_KEY }} >> .env
-            echo PORT=${{ secrets.PORT }} >> .env
-            echo PORTAL_RETURN_URL=${{ secrets.PORTAL_RETURN_URL }} >> .env
-            echo REFRESH_TOKEN_KEY=${{ secrets.REFRESH_TOKEN_KEY }} >> .env
-            echo REFRESH_TOKEN_KEYPLUS=${{ secrets.REFRESH_TOKEN_KEYPLUS }} >> .env
-            echo SESSION_SECRET_KEY=${{ secrets.SESSION_SECRET_KEY }} >> .env
-            echo SIGNING_SECRET=${{ secrets.SIGNING_SECRET }} >> .env
-            echo STRIPE_KEY=${{ secrets.STRIPE_KEY }} >> .env
-            echo WHSEC=${{ secrets.WHSEC }} >> .env
-            npm run tester
-
     dockerize:
       runs-on: ubuntu-latest
       steps:
@@ -119,3 +55,33 @@ jobs:
           run: |
             docker compose -f ./docker-compose.yml up -d
             docker ps -a
+    
+    scan:
+      name: Analyze
+      runs-on: ubuntu-latest
+      permissions:
+        security-events: write
+        actions: read
+        contents: read
+
+      strategy:
+        fail-fast: false
+        matrix:
+          language: [ 'javascript' ]
+
+      steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:${{matrix.language}}"
