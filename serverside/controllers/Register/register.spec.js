@@ -288,7 +288,7 @@ describe("register.js", () => {
             }
         });
     
-        expect(statusCode).toBe(300);
+        expect(statusCode).toBe(500);
     })
 
     it("should return status code 500 when user's subscription archive store creation fails", async () => {
