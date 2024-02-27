@@ -15,14 +15,14 @@ jobs:
 
         - name: Create env file within the frontend directory
           run: |
-            touch fronend/.env
+            touch ./frontend/.env
             echo REACT_APP_ADMIN_EMAIL=${{ secrets.REACT_APP_ADMIN_EMAIL }} >> .env
             echo REACT_APP_GOOGLE_CLIENT_ID=${{ secrets.REACT_APP_GOOGLE_CLIENT_ID }} >> .env
             echo REACT_APP_GOOGLE_SECRET=${{ secrets.REACT_APP_GOOGLE_SECRET }} >> .env
 
         - name: Create env file within the serverside directory
           run: |
-            touch serverside/.env
+            touch ./serverside/.env
             echo ACCESS_TOKEN_KEY=${{ secrets.ACCESS_TOKEN_KEY }} >> .env
             echo ADMIN_EMAIL=${{ secrets.ADMIN_EMAIL }} >> .env
             echo EASYPOST_KEY=${{ secrets.EASYPOST_KEY }} >> .env
