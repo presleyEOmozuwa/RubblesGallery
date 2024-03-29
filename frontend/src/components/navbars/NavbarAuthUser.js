@@ -13,7 +13,6 @@ const NavbarAuthUser = () => {
     const handleLogout = async (event) => {
         event.preventDefault();
         logoutFromClient(logout, signout, navigate);
-
         logoutFromServer("/api/logout/payload", { renewtoken: token }).then((res) => {
             if(res && res.data.status === "logout was successful and Token Store resets"){
                 console.log(res.data.status);

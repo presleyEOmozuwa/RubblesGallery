@@ -9,7 +9,6 @@ import { toast } from 'react-toastify';
 import { loginUser } from '../../services/user.service';
 
 const LoginForm = () => {
-
     const initialValues = {
         email: '',
         password: '',
@@ -28,7 +27,6 @@ const LoginForm = () => {
         email: Yup.string().required("email field is required").email("invalid email format"),
         password: Yup.string().required("password field is required")
     })
-
 
     // REQUEST TO AUTHENTICATE WITH THE SERVER
     const onSubmit = async (values, onSubmitProps) => {

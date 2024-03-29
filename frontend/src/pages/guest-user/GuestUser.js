@@ -8,10 +8,9 @@ import './GuestUser.css';
 const GuestUser = ({ products, initAmount, setDeletedItem }) => {
     const [totalAmount, setTotalAmount] = useState(0);
 
-
     const handleQty = (event, productId) => {
         const modified = products.map((p) => {
-            if (productId === p._id) {
+            if(productId === p._id) {
                 p.quantity = parseInt(event.target.value)
             }
             return p;
