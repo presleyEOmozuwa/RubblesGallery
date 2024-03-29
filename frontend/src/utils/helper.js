@@ -9,6 +9,13 @@ export const totalHandler = (products) => {
     return total;
 }
 
+export const sendToPrevious = (navigate) => {
+    
+}
+
+export const sendToAccount = (navigate) => {
+
+}
 
 
 

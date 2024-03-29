@@ -15,8 +15,6 @@ const ProductDetails = () => {
     const params = useParams();
     const { productId } = params
 
-
-
     // REQUEST TO GET A PRODUCT
     useEffect(() => {
         getProduct(`/api/product-details/${productId}`).then((res) => {
@@ -70,7 +68,7 @@ const ProductDetails = () => {
 
                     <div className='text-center mt-2'>
                         {typeOfItem === "regular" ? <SingelRegularItem cartItems={[product]} /> : <SingleSubscriptionItem cartItems={[product]} />}
-                        <AddToCart productId={id} typeOfItem={typeOfItem} />
+                        <AddToCart productId={id} typeOfItem={typeOfItem}/>
                     </div>
                 </div>
                 <div className='col-lg-4 pt-5'>
