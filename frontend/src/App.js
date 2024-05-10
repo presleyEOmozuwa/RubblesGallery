@@ -8,6 +8,8 @@ import HomeProducts from './pages/home/HomeProducts';
 import NoMatch from './pages/no-match/NoMatch';
 import { AuthProvider } from './context/AuthContext';
 import { LayoutAdmin, LayoutAuthUser, LayoutPublic } from './components/auth-layout/AuthLayout';
+import store from './redux_store/store';
+import { Provider } from 'react-redux'
 
 import { Admin, AdminHome, AdminSubProducts, EmailUpdate, UserNameUpdate, PasswordChange, UserEditAdminForm, UserBlockAdmin, CheckoutSuccessReg, CheckoutSuccessSub, CheckoutFailureRegular, CheckoutFailureSub, ForgotPasswordForm, Invoice, ProductList, ProductEditForm, SharedEditView, UserEditForm, UserList, CategoryList, CategoryDetailsEditForm, CategoryForm, EmailConfirmation, GuestUserBuilder, LoginForm, LoginOTP, OrderDetails, OrderDetails_Invoice, OrderStoreBuilder, ProductDetails, ProductFormData, RegisterForm, ResetPasswordForm, UserDetails, ShoppingCartBuilder, SubscriptionProducts, SubscriptionCartBuilder, AuthShowProducts } from './utils/lazy-loading';
 
@@ -77,7 +79,7 @@ const router = createBrowserRouter([
 
 function App() {
       return (
-            <>
+            <Provider store={store}>
                   <AuthProvider>
                         <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
                               <Suspense fallback={<div>...loading</div>}>
@@ -86,7 +88,7 @@ function App() {
                               </Suspense>
                         </GoogleOAuthProvider>
                   </AuthProvider>
-            </>
+            </Provider>
       )
 }
 export default App;
