@@ -2,6 +2,8 @@
 # dependencies
 **/node_modules
 **/.env
+**/nginx
+**/docker-compose.yml
 /.pnp
 .pnp.js
 **/.git
